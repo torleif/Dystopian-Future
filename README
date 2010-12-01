@@ -1,0 +1,57 @@
+=== welcome redditors ===
+
+Dystopian Future is a 2d action adventure. It is written in python and uses pygame.
+
+Download it, critique, modify then destroy it. Then brag about what you
+did on reddit.
+
+
+
+=== getting started ===
+
+To play game, you'll need:
+ - python
+ - pygame
+
+Portable builds are coming soon. After you download python & pygame, run:
+
+<path to python exe> Dystopian Future/src/game.py
+
+
+
+=== editing the code ===
+
+To edit, you'll need:
+ - an IDE
+ - git
+
+I use netbeans. Install the python plugin, open the project folder and you can just
+press play. Otherwise you'll have to set up your own dev environment. 
+
+At the moment portable builds won't work, the portable python VM does not 
+support the garbage collector, and level includes. To make the game portable I 
+included each level individually and removed the GC.
+
+**the code is horrid.** As a computer scientist, I'm ashamed to have written it. 
+Optimization is the last step of the dev process, but if you want to tidy it up
+go for it.  
+
+
+
+=== Music, sounds and SFX===
+
+Use whatever you feel makes nice sounds.
+
+Sound effects have been made with fruity loops and cfxr.
+ - If you want to play with the fl files you'll need EDIROL Orchestral synth, CS-80V
+synth, ABSYNTH 4 and gladiator. Most of these files are simply tests I haven't got 
+around to fine tuning. 
+
+
+
+=== graphics ===
+
+The sketches are in photoshop. One file is in pixelmator. 
+
+Most of the enemies were sketched, pixelated to 32x32 and animated. 
+

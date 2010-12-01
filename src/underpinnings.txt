@@ -1,0 +1,77 @@
+This text file is simply to jot down ideas as they come. 
+
+Contains list of things that are developed, but never explicitly said.
+
+
+
+Give subtle hint to the year:
+http://www.youtube.com/watch?v=3k49dDCSFnk
+Aries
+Taurus
+Gemini
+Cancer
+Leo
+Virgo
+Libra
+Scorpio
+Sagittarius
+Capricorn
+Aquarius <--next
+Pisces <-- now (Death of two fish)
+ procession of the ages
+year = ~2150
+
+
+All characters must have been cloned by someone. Native humans are now
+ infertile and dependent on machines. Characters:
+
+player. known only by his GARD01 - Clone of an undergrad. Made by Ima?. bald, no hair grown yet,
+so always wears hat. You don't know his name and his face must be generic. The player is "you".
+Ima - assistant. Insane, given to Professor by Director Victoria.
+Engineer - made by Director Victoria.
+Fox - Giant pumpkin. Claims to have turned into pumpkin as punishment by
+ terroists. he actually was turned by DV. he is good willing, does what DV says
+ as she as his memory backed up. character inspired by balrog from cave story.
+Director Victoria - big boss. She's seen all characters before because she's
+ already cloned and killed them before.
+Terroist leader - kind, but after a battle admits that he simply gets paid to
+ be a terrorist. Minor NPC.
+
+
+
+Two endings.
+1) you defeat DV, Fox and kill the boss of the corporation.
+2) ??? find out something really shocking twist?!, defeat the real boss. save ima
+
+
+storyline
+1) home.
+2) office. first encounter with DV. battle Fox again.
+3) underworld. learn location of terrorists and how the modern people live.
+4) airport. small plane to take you to places to explore?
+5) in air.
+    first ending. easy. Defeat DV and Fox. kill main boss
+
+7) Double back through underground, get imas brain scan
+9) learn of the entertainment system
+10) go to HELL and destroy big boss
+
+Two endings:
+ easy
+ hard
+
+
+
+
+current scene = scene22
+healthincrease5
+
+
+
+todo:
+- metroid keys. Make the movement of player a bit better 
+- go back to start to give brain scan of ima
+- battle with director?
+- mushrooms drop tasty mushrooms. They do nothing
+different sounds& explosions for shots.
+- shake sound

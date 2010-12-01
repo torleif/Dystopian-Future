@@ -1,0 +1,37 @@
+#!/bin/bash
+if [ -e levels/level$1.tga ]
+then
+	LVL=levels/level$1.tga;
+fi;
+TEXTURE="0";
+
+if [ $1 -ge 4 ]
+then
+	TEXTURE="1";
+fi;
+if [ $1 -ge 6 ]
+then
+	TEXTURE="2";
+fi;
+if [ $1 -ge 8 ]
+then
+        TEXTURE="3";
+fi;
+if [ $1 -ge 10 ]
+then
+	TEXTURE="4";
+fi;
+if [ $1 -ge 14 ]
+then
+	TEXTURE="5";
+fi;
+if [ $1 -ge 25 ]
+then
+	TEXTURE="6";
+fi;
+if [ $1 -ge 34 ]
+then 
+	TEXTURE="5";
+fi;
+python leveledit.py $LVL --tiles=textures/tiles$TEXTURE.png --codes=textures/codes.tga --tw=32 --th=32 
+
