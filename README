@@ -18,6 +18,16 @@ Portable builds are coming soon. After you download python & pygame, run:
 <path to python exe> Dystopian Future/src/game.py
 
 
+=== editing levels ===
+
+Run ./editor <level no>. If you're on windows, run ./editor then select the 
+level image, and then the level texture. You can see what level uses what
+texture by looking in editor bash script. 
+
+The editor is pgu's texture editor. Point and click, the hidden layer is for
+code events, ie monsters and such. I've labled it with a texture so you know
+what to use.
+
 
 === editing the code ===
 
