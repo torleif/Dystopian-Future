@@ -96,7 +96,14 @@ class Enemy(Sprite):
             self.image = g.images['inventory'][0].subsurface((4 * 32, 8 * 32, 32, 32))
             self.rect.height = 8
             self.speed = 6
-
+        elif name == 'monster6': # a ghost monster that floats around and shoots
+            print 'new monster 6'
+            self.image = pygame.Surface((64,64), SRCALPHA)
+            self.startpos = self.rect.x,self.rect.y
+            self.targeting = 0
+            self.float_target = (0,0)
+            self.gravity = 0
+            self.bump = 0
         hitSoundFile = os.path.join("effects",  "exp1.wav")
         self.destryoed = pygame.mixer.Sound(hitSoundFile)
 
@@ -447,6 +454,38 @@ class Enemy(Sprite):
         elif self.name == 'drop':
             self.rect.y += self.speed
             return
+        elif self.name == 'monster6':
+            if self.targeting:
+                self.float_target = (g.player.rect.x,g.player.rect.y)
+            if self.timer % 30 == 0:
+                self.float_target = (self.startpos[0] + random.randint(-30, 30), self.startpos[1] + random.randint(-30, 30))
+
+            self.rect.y += self.gravity - self.bump
+            timerstart = 5 # time between bumps
+            self.direction = self.float_target[1] > self.rect.y
+            if self.float_target[0] > self.rect.x:
+                timerstart = 3 # bumping up, less wait time
+            if self.timer % (timerstart + random.randint(0, 3)) == 0:
+                self.bump = 1
+
+            print self.gravity, self.bump
+            self.gravity -= 1
+            if self.gravity < -4:
+                self.gravity = -4
+            
+            if self.bump != 0:
+                self.bump += 1
+                if self.bump == 1:
+                    self.gravity = 0
+                if self.bump > 3:
+                    self.image = g.images['monster6'][0].subsurface((0 * 64, 0 * 64, 64, 64))
+                else:
+                    self.image = g.images['monster6'][0].subsurface((0 * 64, 0 * 64, 64, 64))
+                if self.bump > 6:
+                    self.bump = 0
+            else:
+                # normal
+                self.image = g.images['monster6'][0].subsurface((0 * 64, 0 * 64, 64, 64))
 
 
 

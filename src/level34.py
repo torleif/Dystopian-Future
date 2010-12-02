@@ -41,6 +41,10 @@ class Level(LevelBase):
         g.run_codes(self.cdata,(0,0,g.dimentions[0],g.dimentions[1]))
 
 
+    # ugly, ugly monsters
+    def add_monster (self,g,r,a):
+        Enemy(self.g, (r.rect.x, r.rect.y), 'monster6')
+
     # upon moving
     def playerMove(self, g,r,a):
         print 'player move'

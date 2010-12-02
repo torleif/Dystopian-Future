@@ -103,7 +103,8 @@ def init():
         ('monster1',    os.path.join("textures",  "monster1.png"),  (0,0,32,64)),
         ('monster2',    os.path.join("textures",  "monster2.png"),  (0,0,32,32)),
         ('nurse',       os.path.join("textures",  "monster4.png"),  (0,0,32,32)),
-        ('monster5',    os.path.join("textures",  "monster5.png"),  (0,0,32,32))
+        ('monster5',    os.path.join("textures",  "monster5.png"),  (0,0,32,32)),
+        ('monster6',    os.path.join("textures",  "monster6.png"),  (0,0,32,32))
     ]
     g.load_images(idata)
     # bounds of the rect
@@ -127,7 +128,7 @@ def init():
     g.enterLevelSound = pygame.mixer.Sound(os.path.join("effects",  "enter.wav"))
 
     # fonts
-    g.font = pygame.font.Font('seven.TTF', 14)
+    g.font = pygame.font.Font('seven.ttf', 14)
     g.player = None
     g.level = level.LevelBase(g, player_new, (SW,SH))
     g.event = 0
