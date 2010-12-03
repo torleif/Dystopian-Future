@@ -51,8 +51,7 @@ class Level(LevelBase):
 
     # draw back of level
     def draw_back(self):
-        test = self.draw_gradent((105,70,70), (0, 30, 255))
-        self.g.screen.blit(test, (0,0))
+        pass
 
     # when you're over a change level tile
     def change_level(self, g,r,a):

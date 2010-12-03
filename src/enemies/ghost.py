@@ -38,8 +38,6 @@ class Ghost(Enemy):
             self.float_target = (self.startpos[0] + random.randint(-200, 200),
                     self.startpos[1] + random.randint(-200, 200))
 
-        self.rect_double_y += self.gravity
-        self.rect.y = int(self.rect_double_y)
         timerstart = 20 # time between bumps
         if self.float_target[0] > self.rect.x:
             timerstart = 10 # bumping up, less wait time
@@ -47,10 +45,14 @@ class Ghost(Enemy):
             self.bump = 1
         dx = self.rect.x - self.float_target[0]
         self.direction = dx > 0
-        if dx > 5: # float left
-            self.rect.x -= 2
-        if dx < -5: # float right
-            self.rect.x += 2
+        
+        if self.mode != 'shooting':
+            self.rect_double_y += self.gravity
+            self.rect.y = int(self.rect_double_y)
+            if dx > 5: # float left
+                self.rect.x -= 2
+            if dx < -5: # float right
+                self.rect.x += 2
 
         self.gravity += 0.5
         if self.gravity > 2.0:
