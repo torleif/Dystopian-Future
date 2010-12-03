@@ -7,7 +7,7 @@ from level import LevelBase
 import sys; sys.path.insert(0, "..")
 from character import Character
 from inventory import Inventory
-from enemy import Enemy
+from enemies.monster1 import Monster1
 
 
 class Level(LevelBase):
@@ -48,7 +48,7 @@ class Level(LevelBase):
     # ugly, ugly monsters
     def add_monster (self,g,r,a):
         print 'add_monster ',r.rect
-        e = Enemy(self.g, (r.rect.x, r.rect.y), 'monster1')
+        e = Monster1(self.g, (r.rect.x, r.rect.y))
 
     # upon moving
     def playerMove(self, g,r,a):
@@ -134,10 +134,10 @@ class Level(LevelBase):
                 self.terrorist.faceup = 0
                 g.player.direction = 0
             elif self.pdialog == 3:
-                str = "Haha! You're bald! "
+                str = "What do you want, baldy?"
                 self.info_box(str, self.terrorist)
             elif self.pdialog == 4:
-                str = "You must be the one who was sent down here. I guess the robot "
+                str = "Ah, you must be the one who was sent down here. I guess the robot "
                 str += "\ndidn't think you'd live past the Monotane. "
                 str += "\nShe didn't think much of me either. "
                 self.info_box(str, self.terrorist)

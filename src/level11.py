@@ -7,7 +7,7 @@ from level import LevelBase
 import sys; sys.path.insert(0, "..")
 from character import Character
 from inventory import Inventory
-from enemy import Enemy
+from enemies.monster0 import Monster0
 
 
 class Level(LevelBase):
@@ -42,7 +42,7 @@ class Level(LevelBase):
 
     # ugly, ugly monsters
     def add_monster (self,g,r,a):
-        Enemy(self.g, (r.rect.x, r.rect.y), 'monster0')
+        Monster0(self.g, (r.rect.x, r.rect.y))
 
     # upon moving
     def playerMove(self, g,r,a):

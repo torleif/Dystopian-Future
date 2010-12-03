@@ -7,7 +7,7 @@ from level import LevelBase
 import sys; sys.path.insert(0, "..")
 from character import Character
 from inventory import Inventory
-from enemy import Enemy
+from enemies.monster1 import Monster1
 
 
 class Level(LevelBase):
@@ -50,7 +50,8 @@ class Level(LevelBase):
         
     # ugly, ugly monsters
     def add_monster (self,g,r,a):
-        e = Enemy(self.g, (r.rect.x, r.rect.y), 'monster1')
+        #e = Enemy(self.g, (r.rect.x, r.rect.y), 'monster1')
+        e = Monster1(self.g, (r.rect.x, r.rect.y))
         e.waketype = 'water'
         self.monsters.append(e)
 

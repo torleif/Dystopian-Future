@@ -8,7 +8,6 @@ import sys; sys.path.insert(0, "..")
 from character import Character
 from inventory import Inventory
 from effect import Effect
-from enemy import Enemy
 from gameEffect import GameEffect
 
 

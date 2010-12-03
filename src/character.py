@@ -7,7 +7,9 @@ import sys; sys.path.insert(0, "..")
 from pgu.vid import Sprite
 from shot import Shot
 from effect import Effect
-from enemy import Enemy
+#from enemies.enemy import Enemy
+from enemies.nurse import Nurse
+from enemies.monster2 import Monster2
 import random
 import math
 
@@ -640,12 +642,14 @@ class Character(Sprite):
 
     # creates a slime monster at this location
     def create_slime_monster(self, r):
-        Enemy(self.g, (r[0], r[1] - r[1] % 32 + 16), 'monster2')
+        #Enemy(self.g, (r[0], r[1] - r[1] % 32 + 16), 'monster2')
+        Monster2(self.g, (r[0], r[1] - r[1] % 32 + 16))
         self.squirt.play()
 
     # creates a nurse monster
     def create_nurse_monster(self, r):
-        Enemy(self.g, (r[0] - 16, r[1] - r[1] % 32), 'nurse')
+        #Enemy(self.g, (r[0] - 16, r[1] - r[1] % 32), 'nurse')
+        Nurse(self.g, (r[0] - 16, r[1] - r[1] % 32))
 
     # will make the direction of the object face the player
     def face_the_player(self):

@@ -69,9 +69,10 @@ healthincrease5
 
 
 todo:
-- metroid keys. Make the movement of player a bit better 
-- go back to start to give brain scan of ima
-- battle with director?
+- when walking and holding up shotting looks silly
+- remake walking animation for player
+- metroid keys. Make the movement of player a bit better
+- battle with director
 - mushrooms drop tasty mushrooms. They do nothing
 different sounds& explosions for shots.
 - shake sound

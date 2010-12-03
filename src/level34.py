@@ -8,7 +8,7 @@ import sys; sys.path.insert(0, "..")
 from character import Character
 from inventory import Inventory
 from effect import Effect
-from enemy import Enemy
+from enemies.ghost import Ghost
 from gameEffect import GameEffect
 
 
@@ -43,7 +43,7 @@ class Level(LevelBase):
 
     # ugly, ugly monsters
     def add_monster (self,g,r,a):
-        Enemy(self.g, (r.rect.x, r.rect.y), 'monster6')
+        Ghost(self.g, (r.rect.x, r.rect.y))
 
     # upon moving
     def playerMove(self, g,r,a):

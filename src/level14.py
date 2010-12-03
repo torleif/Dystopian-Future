@@ -7,7 +7,6 @@ from level import LevelBase
 import sys; sys.path.insert(0, "..")
 from character import Character
 from inventory import Inventory
-from enemy import Enemy
 
 
 class Level(LevelBase):

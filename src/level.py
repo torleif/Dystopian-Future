@@ -6,7 +6,9 @@ from pygame.locals import *
 import os
 from character import Character
 from inventory import Inventory
-from enemy import Enemy
+#from enemies.enemy import Enemy
+from enemies.bugs import Bugs
+from enemies.drip import Drip
 import sys; sys.path.insert(0, "..")
 from pgu import vid
 
@@ -105,11 +107,13 @@ class LevelBase:
     def add_bugs(self, g, r, a):
         mbugs = random.randint(0, 3)
         for i in range(mbugs):
-            Enemy(self.g,(r.rect.x, r.rect.y), 'bugs')
+            #Enemy(self.g,(r.rect.x, r.rect.y), 'bugs')
+            Bugs(self.g,(r.rect.x, r.rect.y))
 
     # add a drip that makes a dripping.. sound? i don't know.
     def add_drip(self, g, r, a):
-        Enemy(self.g,(r.rect.x, r.rect.y), 'drip')
+        #Enemy(self.g,(r.rect.x, r.rect.y), 'drip')
+        Drip(self.g,(r.rect.x, r.rect.y))
 
     # a spike that takes 21 off health
     def add_special_spike(self, g, r, a):

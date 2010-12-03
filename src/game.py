@@ -268,8 +268,12 @@ def run(g):
             try:
                 loadedLevelModule = __import__(level_name)
                 g.level = loadedLevelModule.Level(g, player_new, (SW,SH), clevel)
-            except ImportError:
+            except ImportError as inst:
+                print type(inst)     # the exception instance
+                print inst.args      # arguments stored in .args
+                print inst           # __str__ allows args to printed directly
                 print level_name, " failed to load"
+                print ImportError
             
             clevel = g.currentLevel
             g.saveData['level'] = clevel

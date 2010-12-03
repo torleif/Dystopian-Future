@@ -7,7 +7,8 @@ from level import LevelBase
 import sys; sys.path.insert(0, "..")
 from character import Character
 from inventory import Inventory
-from enemy import Enemy
+from enemies.bird import Bird
+from enemies.rat import Rat
 
 
 class Level(LevelBase):
@@ -40,9 +41,9 @@ class Level(LevelBase):
     # adds a monster. in this level they're rats, and one bird
     def add_monster (self,g,r,a):
         if r.rect == Rect(448, 448, 32, 32) or r.rect == Rect(768, 544, 32, 32):
-            Enemy(self.g, (r.rect.x, r.rect.y), 'bird')
+            Bird(self.g, (r.rect.x, r.rect.y))
         else:
-            Enemy(self.g, (r.rect.x, r.rect.y), 'rat')
+            Rat(self.g, (r.rect.x, r.rect.y))
             
 
     # upon moving
