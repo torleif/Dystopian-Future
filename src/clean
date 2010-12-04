@@ -1,2 +1,5 @@
 #!/bin/sh
 rm -R *.pyc 
+rm -R pgu/*.pyc
+rm -R enemies/*.pyc
+rm -R pgu/gui/*.pyc
