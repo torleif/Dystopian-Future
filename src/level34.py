@@ -58,8 +58,8 @@ class Level(LevelBase):
         if a.__class__.__name__ != 'Player':
             return
         print g.player.pos
-        if g.player.pos[0] == 8:
-            g.currentLevel = 32
+        if g.player.pos[0] == 38:
+            g.currentLevel = 35
 
     # level events
     def level_loop(self):

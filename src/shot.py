@@ -223,3 +223,64 @@ class Shot(Sprite):
     # destroy the shot
     def get_damage(self):
         return self.damage
+
+class Laser0(Shot):
+    def __init__(self, g, direction, pos, owner = 'player'):
+        Shot.__init__(self, g, direction, pos, 'laser0', owner)
+        self.laser_color = Color(0xc7e3a3FF) # a yellowy color
+        g.shootSound5.play()
+
+        lenpus = 0
+        while 1:
+            self.pos = g.screen_to_tile((self.rect.x - g.view.x + (lenpus * -(direction*2-1)), \
+                self.rect.y - g.view.y ))
+
+            lenpus += 10
+            if self.pos[0] >= g.view.x or  self.pos[1] >= g.view.y or \
+                    g.view.x < 0 or g.view.y < 0:
+                break
+            if g.clayer[self.pos[1] ][self.pos[0]] == 1:
+                break;
+        if direction == 1:
+            self.rect.x -= lenpus
+
+        self.image = pygame.Surface((lenpus, 10), SRCALPHA)
+        self.image.fill(self.laser_color)
+        self.keep_alive = 5
+        self.rect.width = lenpus
+        self.irect.width = lenpus
+
+    def loop(self, g, r):
+        # die after a while
+        if self.timer > self.keep_alive:
+            self.destroy()
+        if self.timer == 1:
+            self.image.fill((255,255,255,255), Rect(0, 0, self.image.get_width(), 1), BLEND_RGBA_SUB)
+            self.image.fill((255,255,255,255), Rect(0, 9, self.image.get_width(), 1), BLEND_RGBA_SUB)
+        if self.timer == 2:
+            self.image.fill((255,255,255,255), Rect(0, 1, self.image.get_width(), 1), BLEND_RGBA_SUB)
+            self.image.fill((255,255,255,255), Rect(0, 8, self.image.get_width(), 1), BLEND_RGBA_SUB)
+        if self.timer == 3:
+            self.image.fill((255,255,255,255), Rect(0, 2, self.image.get_width(), 1), BLEND_RGBA_SUB)
+            self.image.fill((255,255,255,255), Rect(0, 7, self.image.get_width(), 1), BLEND_RGBA_SUB)
+        if self.timer == 4:
+            self.image.fill((255,255,255,255), Rect(0, 3, self.image.get_width(), 1), BLEND_RGBA_SUB)
+            self.image.fill((255,255,255,255), Rect(0, 6, self.image.get_width(), 1), BLEND_RGBA_SUB)
+        self.timer += 1
+        
+        # other bullets only check point, so we check rect for this one
+        if self.image.get_rect().colliderect(g.player.image.get_rect()):
+            g.player.touch(self)
+
+
+
+    def rebound(self, n):
+        pass
+    
+    def destroy(self):
+        if self in self.g.sprites:
+            self.g.sprites.remove(self)
+        if self in self.g.removeOnLeave:
+            self.g.removeOnLeave.remove(self)
+        if self in self.g.bullets:
+            self.g.bullets.remove(self)

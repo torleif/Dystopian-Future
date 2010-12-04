@@ -76,3 +76,6 @@ todo:
 - mushrooms drop tasty mushrooms. They do nothing
 different sounds& explosions for shots.
 - shake sound
+
+
+- make some of the screens (2nd screen) 1/3 photography rule
