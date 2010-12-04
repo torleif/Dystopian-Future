@@ -1,4 +1,4 @@
-""" jail """
+""" jail - battle a few more monsters, battle end guy, save ima. """
 import pygame
 from pygame.rect import Rect
 from pygame.locals import *
@@ -31,13 +31,11 @@ class Level(LevelBase):
         self.title = 'Jail - Airport Shortcut'
         # current level
         TW,TH = 32,32
-
         # load tile set
         g.tga_load_tiles(os.path.join("textures",  "tiles5.png"), (TW,TH), self.tdata)
-        g.tga_load_level(os.path.join("levels",  "level34.tga"), 1)
+        g.tga_load_level(os.path.join("levels",  "level35.tga"), 1)
         g.bounds = pygame.Rect(TW,TH,(len(g.tlayer[0])-2)*TW,(len(g.tlayer)-2)*TH)
         g.code_events(self.edata)
-
         g.run_codes(self.cdata,(0,0,g.dimentions[0],g.dimentions[1]))
 
 

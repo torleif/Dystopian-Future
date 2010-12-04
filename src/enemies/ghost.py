@@ -4,9 +4,10 @@ from pygame.locals import *
 import random
 import os
 import sys; sys.path.insert(0, "..")
-from shot import Shot, Laser0
-from enemy import Enemy
 
+from shot import Laser0
+from enemy import Enemy
+from inventory import Inventory
 from effect import Effect
 
 
@@ -16,7 +17,6 @@ class Ghost(Enemy):
     """
 
     def __init__(self, g, pos):
-        print 'new monster 6'
         Enemy.__init__(self, g, pos, 'ghost')
         self.rect.width,self.rect.height = 64, 64
         self.shape.w,self.shape.h = 64, 64
@@ -30,6 +30,7 @@ class Ghost(Enemy):
         hitSoundFile = os.path.join("effects",  "critter8.wav")
         self.health = 40
         self.birdhit = pygame.mixer.Sound(hitSoundFile)
+        self.death = pygame.mixer.Sound(os.path.join("effects",  "cry1.wav"))
 
     # ghost behavour
     def loop(self, g, r):
@@ -38,12 +39,8 @@ class Ghost(Enemy):
             if self.btimer < 3:
                 self.image = g.images['monster6'][0].subsurface((3 * 64, 1 * 64, 64, 64))
             else:
-                Effect(self.g, 'explosion', (self.rect.x + 32, self.rect.y + 32))
-                self.destryoed.play()
-                self.g.sprites.remove(self)
+                self.destroy()
             return
-
-
 
         if self.targeting:
             self.float_target = (g.player.rect.x,g.player.rect.y)
@@ -127,3 +124,20 @@ class Ghost(Enemy):
             self.gravity = 3.0
         if h == 1:
             self.gravity = -3.0
+
+   # drop some gimp prizes
+    def destroy(self):
+        Effect(self.g, 'explosion', (self.rect.x, self.rect.y))
+
+        rint = random.randint(1, 3)
+        if rint == 1:
+            Inventory(self.g, 'skyberry', (self.rect.x, self.rect.y))
+            Inventory(self.g, 'skyberry', (self.rect.x, self.rect.y))
+        elif rint == 2:
+            Inventory(self.g, 'health', (self.rect.x, self.rect.y))
+        elif rint == 3:
+            Inventory(self.g, 'skyberry', (self.rect.x, self.rect.y))
+            Inventory(self.g, 'skyberry', (self.rect.x, self.rect.y))
+            Inventory(self.g, 'skyberry', (self.rect.x, self.rect.y))
+        self.death.play()
+        self.g.sprites.remove(self)

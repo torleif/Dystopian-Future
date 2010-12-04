@@ -19,7 +19,6 @@ class Nurse(Enemy):
     """
 
     def __init__(self, g, pos):
-        print 'new nurse'
         Enemy.__init__(self, g, pos, 'nurse')
         hitSoundFile = os.path.join("effects",  "critter6.wav")
         self.birdhit = pygame.mixer.Sound(hitSoundFile)

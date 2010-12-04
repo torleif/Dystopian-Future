@@ -3,3 +3,6 @@ rm -R *.pyc
 rm -R pgu/*.pyc
 rm -R enemies/*.pyc
 rm -R pgu/gui/*.pyc
+
+# remove deleted files
+git ls-files -z --deleted | xargs -0 git rm

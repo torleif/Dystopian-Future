@@ -20,6 +20,7 @@ SW,SH = 640,480
 TW,TH = 32,32
 FPS = 30
 
+
 # create the player object
 def player_new(g,t,value):
     g.clayer[t.ty][t.tx] = 0
