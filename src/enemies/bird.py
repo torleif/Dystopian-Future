@@ -8,7 +8,7 @@ import sys; sys.path.insert(0, "..")
 from pgu.vid import Sprite
 import math
 from effect import Effect
-from shot import Shot
+from shot import Shot2
 from enemy import Enemy
 from inventory import Inventory
 
@@ -47,7 +47,7 @@ class Bird(Enemy):
             self.timer -= 1
             self.image = g.images['bird'][0].subsurface((2 * 32, 0, 32, 32))
             if self.btimer == 0:
-                s = Shot(g, not self.direction, (self.rect.x, self.rect.y + 10), 'shot2', 'enemy')
+                s = Shot2(g, not self.direction, (self.rect.x, self.rect.y + 10), 'enemy')
             self.btimer += 1
             if self.btimer > 10:
                 self.mode = 'idle'

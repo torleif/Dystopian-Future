@@ -20,7 +20,6 @@ class Level(LevelBase):
         # current level
         currentLevel = os.path.join("levels",  "level1.tga")
 
-
         TW,TH = 32,32
 
         # load tile set
@@ -30,7 +29,7 @@ class Level(LevelBase):
         g.bounds = pygame.Rect(TW,TH,(len(g.tlayer[0])-2)*TW,(len(g.tlayer)-2)*TH)
         g.run_codes(self.cdata,(0,0,g.dimentions[0],g.dimentions[1]))
         g.code_events(self.edata)
-        self.initBack('bg0.png', 128)
+        self.initBack('bg0.png', 88) # must be 160 px down
 
 
     # if the player comes back from a prev level

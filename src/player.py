@@ -8,7 +8,7 @@ from pgu.vid import Sprite
 from pgu import tilevid
 from inventory import Inventory
 
-from shot import Shot
+from shot import Shot,Shot2
 from effect import Effect
 
 
@@ -189,7 +189,11 @@ class Player(Sprite):
                                 sdirection = 2
                             if aimdown:
                                 sdirection = 3
-                            s = Shot(g, sdirection, (self.rect.x - xoffset, self.rect.y + 20), shottype)
+                            s = None
+                            if shottype == 'shot2':
+                                s = Shot2(g, sdirection, (self.rect.x - xoffset, self.rect.y + 20))
+                            else:
+                                s = Shot(g, sdirection, (self.rect.x - xoffset, self.rect.y + 20), shottype)
                             s.invisible_timer = 1
                             self.shotcounter += s.get_reload_time()
             self.jumpshoot = 0

@@ -1,4 +1,3 @@
-
 """ LETS FUCKING SHOOT SOME SHIT """
 import pygame
 from pygame.locals import *
@@ -16,8 +15,8 @@ class Shot(Sprite):
     """
     timer = 0
     direction = 0
-    speed = 8
-    keep_alive = 15
+    speed = 12
+    keep_alive = 10
     damage = 1
     reload = 20
     invisible_timer = 0
@@ -40,7 +39,6 @@ class Shot(Sprite):
         self.rect.width = 8
         self.rect.height = 8
         self.owner = owner
-
         if owner == 'player':
             mkstr = type+'_lvl'
             if mkstr in g.saveData:
@@ -51,20 +49,12 @@ class Shot(Sprite):
                 
         if type == 'shot1':
             g.shootSound1.play()
-        elif type == 'shot2': # green bird bullet
-            g.shootSound2.play()
-            self.orginalimg = g.images['inventory'][0].subsurface((3 * 32, 2*32, 32, 32))
-            #self.image = self.orginalimg
-            self.speed = 12
-            self.keep_alive = 12
-            self.damage = 2 + self.level
-            self.reload = 15
         elif type == 'shot3': # fox spray bullet
             g.shootSound3.play()
             self.orginalimg = g.images['inventory'][0].subsurface((5 * 32, 2*32, 32, 32))
             #self.image = self.orginalimg
-            self.speed = 13
-            self.keep_alive = 10
+            self.speed = 15
+            self.keep_alive = 8
             self.damage = 1
             self.reload = 10
             self.yvel = random.randint(-2, 2)
@@ -72,8 +62,8 @@ class Shot(Sprite):
             g.shootSound4.play()
             self.orginalimg = g.images['inventory'][0].subsurface((5 * 32, 3*32, 32, 32))
             #self.image = self.orginalimg
-            self.speed = 8 + self.level * 2
-            self.keep_alive = 13
+            self.speed = 9 + self.level * 2
+            self.keep_alive = 11
             self.damage = 2 + self.level
             self.reload = 7
             self.rect.height = 10
@@ -116,8 +106,7 @@ class Shot(Sprite):
             g.shootSound5.play()
         self.renderoffset = (-16, -20)
 
-    # upon each loop
-    def loop(self, g, r):
+    def move(self):
         if self.direction != 2 and self.direction != 3:
             self.rect.x -= self.speed * (self.direction * 2 - 1)
         elif self.direction == 2:
@@ -125,6 +114,18 @@ class Shot(Sprite):
         elif self.direction == 3:
             self.rect.y += self.speed
 
+        if self.invisible_timer > 0:
+            self.invisible_timer -= 1
+            self.image = self.g.images['inventory'][0].subsurface((0, 0, 0, 0))
+
+        # die after a while
+        if self.timer > self.keep_alive:
+            self.destroy()
+        self.timer += 1
+
+    # upon each loop
+    def loop(self, g, r):
+        self.move()
         if self.type == 'shot1':
             if self.direction != 2 and self.direction != 3:
                 if self.timer / 3 % 2 == 0:
@@ -141,15 +142,6 @@ class Shot(Sprite):
                     self.orginalimg = g.images['inventory'][0].subsurface((0, 9 * 32, 32, 32))
                 else:
                     self.orginalimg = g.images['inventory'][0].subsurface((1 * 32, 9 * 32, 32, 32))
-        elif self.type == 'shot2':
-            if self.level == 0:
-                self.orginalimg = g.images['inventory'][0].subsurface((6 * 32, 5*32, 32, 32))
-            elif self.level == 1:
-                t = 4 + (self.timer / 2 % 2 == 0)
-                self.orginalimg = g.images['inventory'][0].subsurface((t * 32, 5*32, 32, 32))
-            elif self.level == 2:
-                t = 3 + (self.timer / 2 % 2 == 0)
-                self.orginalimg = g.images['inventory'][0].subsurface((t * 32, 2*32, 32, 32))
         elif self.type == 'shot3':
             t = 5 + (self.timer / 2 % 3 == 0)
             self.orginalimg = g.images['inventory'][0].subsurface((t * 32, 2*32, 32, 32))
@@ -184,15 +176,7 @@ class Shot(Sprite):
 
         self.image = pygame.transform.flip(self.orginalimg, 1-self.direction, 0)
 
-        if self.invisible_timer > 0:
-            self.invisible_timer -= 1
-            self.image = g.images['inventory'][0].subsurface((0, 0, 0, 0))
 
-
-        # die after a while
-        if self.timer > self.keep_alive:
-            self.destroy()
-        self.timer += 1
 
     # rebound
     def rebound_spawner(self, n):
@@ -208,13 +192,8 @@ class Shot(Sprite):
 
     # destroy the self
     def destroy(self):
-        Effect(self.g, 'shot', (self.rect.x - 10, self.rect.y - 13))
-        if self in self.g.sprites:
-            self.g.sprites.remove(self)
-        if self in self.g.removeOnLeave:
-            self.g.removeOnLeave.remove(self)
-        if self in self.g.bullets:
-            self.g.bullets.remove(self)
+        Effect(self.g, 'shot', (self.rect.x - 10, self.rect.y - 11))
+        self.remove_sprite()
 
     # time between shots
     def get_reload_time(self):
@@ -224,9 +203,17 @@ class Shot(Sprite):
     def get_damage(self):
         return self.damage
 
+    def remove_sprite(self):
+        if self in self.g.sprites:
+            self.g.sprites.remove(self)
+        if self in self.g.removeOnLeave:
+            self.g.removeOnLeave.remove(self)
+        if self in self.g.bullets:
+            self.g.bullets.remove(self)
+
 class Laser0(Shot):
     def __init__(self, g, direction, pos, owner = 'player'):
-        Shot.__init__(self, g, direction, pos, 'laser0', owner)
+        Shot.__init__(g, direction, pos, 'laser0', owner)
         self.laser_color = Color(0xc7e3a3FF) # a yellowy color
         g.shootSound5.play()
 
@@ -267,20 +254,43 @@ class Laser0(Shot):
             self.image.fill((255,255,255,255), Rect(0, 3, self.image.get_width(), 1), BLEND_RGBA_SUB)
             self.image.fill((255,255,255,255), Rect(0, 6, self.image.get_width(), 1), BLEND_RGBA_SUB)
         self.timer += 1
-        
+
         # other bullets only check point, so we check rect for this one
         if self.image.get_rect().colliderect(g.player.image.get_rect()):
             g.player.touch(self)
 
-
-
     def rebound(self, n):
         pass
-    
+
     def destroy(self):
-        if self in self.g.sprites:
-            self.g.sprites.remove(self)
-        if self in self.g.removeOnLeave:
-            self.g.removeOnLeave.remove(self)
-        if self in self.g.bullets:
-            self.g.bullets.remove(self)
+        self.remove_sprite()
+
+
+class Shot2(Shot):
+    def __init__(self, g, direction, pos, owner = 'player'):
+        Shot.__init__(self, g, direction, pos, 'shot2', owner)
+        g.shootSound2.play()
+        self.speed = 14
+        self.keep_alive = 10
+        self.damage = 2 + self.level
+        self.reload = 15
+
+    def loop(self, g, r):
+        self.move()
+        if self.level == 0:
+            self.image = g.images['inventory'][0].subsurface((6 * 32, 5*32, 32, 32))
+        elif self.level == 1:
+            t = 4 + (self.timer / 2 % 2 == 0)
+            self.image = g.images['inventory'][0].subsurface((t * 32, 5*32, 32, 32))
+        elif self.level == 2:
+            t = 3 + (self.timer / 2 % 2 == 0)
+            self.image = g.images['inventory'][0].subsurface((t * 32, 2*32, 32, 32))
+
+    def rebound(self, n):
+        self.destroy()
+
+    def destroy(self):
+        Effect(self.g, 'explosion0', (self.rect.x - 16, self.rect.y - 16))
+        self.remove_sprite()
+
+    

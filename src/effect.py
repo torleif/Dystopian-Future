@@ -78,6 +78,9 @@ class Effect(Sprite):
             Effect(g, 'dirt', pos)
             Effect(g, 'dirt', pos)
             self.keep_alive = 0
+        if name == 'explosion0':
+            self.keep_alive = 8
+            self.image = g.images['inventory'][0].subsurface((0 * 32, 11 * 32, 32, 32))
 
         g.sprites.append(self)
     
@@ -121,6 +124,8 @@ class Effect(Sprite):
             self.rect.x += self.vecx
             self.rect.y += self.vecy
             self.vecy += .5
+        elif self.name == 'explosion0':
+            self.image = g.images['inventory'][0].subsurface(((self.timer / 2) * 32, 11 * 32, 32, 32))
 
 
 
