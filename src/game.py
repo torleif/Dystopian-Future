@@ -124,6 +124,10 @@ def init():
     g.hurt.set_volume(.5)
     shootSoundFile = os.path.join("effects",  "exp2.wav")
     g.exp2 = pygame.mixer.Sound(shootSoundFile)
+
+    g.exp3 = pygame.mixer.Sound(os.path.join("effects",  "exp3.wav"))
+    g.exp4 = pygame.mixer.Sound(os.path.join("effects",  "exp4.wav"))
+    g.exp5 = pygame.mixer.Sound(os.path.join("effects",  "exp5.wav"))
     
     # entering a new level
     g.enterLevelSound = pygame.mixer.Sound(os.path.join("effects",  "enter.wav"))

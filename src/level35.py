@@ -24,6 +24,7 @@ class Level(LevelBase):
     btimer = 0
     lockedatmessage = 0
     inbattle = 0
+    movie = 0
     
     def __init__(self, g, player_new, dimentions, p = 0):
         LevelBase.__init__(self, g, player_new, dimentions)
@@ -56,14 +57,30 @@ class Level(LevelBase):
         if a.__class__.__name__ != 'Player':
             return
         print g.player.pos
-        if g.player.pos[0] == 38:
-            g.currentLevel = 35
+        if g.player.pos[1] == 38:
+            g.currentLevel = 36
+        if g.player.pos[0] == 0:
+            g.currentLevel = 34
 
     # level events
     def level_loop(self):
         g = self.g
 
-
+        if g.player.pos == (35, 8) and g.event and g.intermission == 0:
+            self.g.player.hidden = 1
+            self.movie = 1
+            g.intermission = 1
+            pos = g.tile_to_screen((35, 8))
+            pos = (pos[0] + g.view.x, pos[1] + g.view.y)
+            self.lift = Effect(self.g, 'lift', pos)
+        if self.movie:
+            self.g.tlayer[8][35] = 10
+            self.pan_camera(self.lift)
+            if self.lift.rect.y < 20:
+                g.currentLevel = 25
+                g.sprites.remove(self.lift)
+                self.pan_camera(None)
+                g.intermission = 0
 
         if self.oldPos != g.player.pos:
             self.pdialog = 0

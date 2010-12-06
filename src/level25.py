@@ -69,6 +69,8 @@ class Level(LevelBase):
             return
         if g.player.pos[0] == 64:
             g.currentLevel = 26
+            if 'i_tape' in g.saveData:
+                g.currentLevel = 28 # change the level a bit.
 
     # level events
     def level_loop(self):

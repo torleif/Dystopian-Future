@@ -64,6 +64,9 @@ class Level(LevelBase):
         if 'scene17' in g.saveData:
             self.fox.feeling = 'dead'
             self.director.hidden = 1
+        # plane is gone if you got imas backup tape
+        if 'i_tape' in g.saveData:
+            self.vats.removeself()
         self.invbox = 0
 
 

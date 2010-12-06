@@ -29,6 +29,10 @@ if [ $1 -ge 25 ]
 then
 	TEXTURE="6";
 fi;
+if [ $1 -eq 29 ]
+then
+	TEXTURE="5"; 
+fi;
 if [ $1 -ge 34 ]
 then 
 	TEXTURE="5";

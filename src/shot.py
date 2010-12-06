@@ -52,22 +52,12 @@ class Shot(Sprite):
         elif type == 'shot3': # fox spray bullet
             g.shootSound3.play()
             self.orginalimg = g.images['inventory'][0].subsurface((5 * 32, 2*32, 32, 32))
-            #self.image = self.orginalimg
             self.speed = 15
             self.keep_alive = 8
             self.damage = 1
             self.reload = 10
             self.yvel = random.randint(-2, 2)
-        elif type == 'shot4': # monster shot
-            g.shootSound4.play()
-            self.orginalimg = g.images['inventory'][0].subsurface((5 * 32, 3*32, 32, 32))
-            #self.image = self.orginalimg
-            self.speed = 9 + self.level * 2
-            self.keep_alive = 11
-            self.damage = 2 + self.level
-            self.reload = 7
-            self.rect.height = 10
-            self.yvel = random.randint(-1, 0)
+        #elif type == 'shot4': # monster shot
         elif type == 'shot5': # mushroom monster shot (spawns green slime, or explodes)
             self.orginalimg = g.images['inventory'][0].subsurface((1 * 32, 7*32, 32, 32))
             #self.image = self.orginalimg
@@ -114,14 +104,17 @@ class Shot(Sprite):
         elif self.direction == 3:
             self.rect.y += self.speed
 
-        if self.invisible_timer > 0:
-            self.invisible_timer -= 1
-            self.image = self.g.images['inventory'][0].subsurface((0, 0, 0, 0))
-
         # die after a while
         if self.timer > self.keep_alive:
             self.destroy()
         self.timer += 1
+
+    # some missiles should only be visible after it comes out of the gun.
+    def loop_end(self):
+        if self.invisible_timer > 0:
+            self.invisible_timer -= 1
+            self.image = self.g.images['inventory'][0].subsurface((0, 0, 0, 0))
+
 
     # upon each loop
     def loop(self, g, r):
@@ -146,20 +139,6 @@ class Shot(Sprite):
             t = 5 + (self.timer / 2 % 3 == 0)
             self.orginalimg = g.images['inventory'][0].subsurface((t * 32, 2*32, 32, 32))
             self.rect.y += self.yvel
-        elif self.type == 'shot4':
-            if self.level == 0:
-                t = 3 + (self.timer / 2 % 2 == 0)
-                self.orginalimg = g.images['inventory'][0].subsurface((t * 32, 6*32, 32, 32))
-            elif self.level == 1:
-                t = (self.timer / 2 % 2 == 0)
-                self.orginalimg = g.images['inventory'][0].subsurface((t * 32, 6*32, 32, 32))
-            elif self.level == 2:
-                t = 5 + (self.timer / 2 % 3 == 0)
-                self.orginalimg = g.images['inventory'][0].subsurface((t * 32, 3*32, 32, 32))
-            if  self.direction != 2 and self.direction != 3:
-                self.rect.y += self.yvel
-            else:
-                self.rect.x += self.yvel
         elif self.type == 'shot5':
             self.orginalimg = g.images['inventory'][0].subsurface((5 * 32, 4*32, 32, 32))
             self.rect.y += self.yvel
@@ -175,7 +154,7 @@ class Shot(Sprite):
             self.orginalimg = g.images['inventory'][0].subsurface(((1 + t) * 32, 7*32, 32, 32))
 
         self.image = pygame.transform.flip(self.orginalimg, 1-self.direction, 0)
-
+        self.loop_end()
 
 
     # rebound
@@ -213,7 +192,7 @@ class Shot(Sprite):
 
 class Laser0(Shot):
     def __init__(self, g, direction, pos, owner = 'player'):
-        Shot.__init__(g, direction, pos, 'laser0', owner)
+        Shot.__init__(self, g, direction, pos, 'laser0', owner)
         self.laser_color = Color(0xc7e3a3FF) # a yellowy color
         g.shootSound5.play()
 
@@ -223,10 +202,10 @@ class Laser0(Shot):
                 self.rect.y - g.view.y ))
 
             lenpus += 10
-            if self.pos[0] >= g.view.x or  self.pos[1] >= g.view.y or \
+            if self.pos[0] >= g.size[0] or  self.pos[1] >= g.size[1] or \
                     g.view.x < 0 or g.view.y < 0:
                 break
-            if g.clayer[self.pos[1] ][self.pos[0]] == 1:
+            if g.clayer[self.pos[1]][self.pos[0]] == 1:
                 break;
         if direction == 1:
             self.rect.x -= lenpus
@@ -256,7 +235,7 @@ class Laser0(Shot):
         self.timer += 1
 
         # other bullets only check point, so we check rect for this one
-        if self.image.get_rect().colliderect(g.player.image.get_rect()):
+        if self.rect.colliderect(g.player.rect):
             g.player.touch(self)
 
     def rebound(self, n):
@@ -265,7 +244,7 @@ class Laser0(Shot):
     def destroy(self):
         self.remove_sprite()
 
-
+# green 'bio' bullet
 class Shot2(Shot):
     def __init__(self, g, direction, pos, owner = 'player'):
         Shot.__init__(self, g, direction, pos, 'shot2', owner)
@@ -285,12 +264,51 @@ class Shot2(Shot):
         elif self.level == 2:
             t = 3 + (self.timer / 2 % 2 == 0)
             self.image = g.images['inventory'][0].subsurface((t * 32, 2*32, 32, 32))
+        self.loop_end()
 
     def rebound(self, n):
         self.destroy()
 
     def destroy(self):
         Effect(self.g, 'explosion0', (self.rect.x - 16, self.rect.y - 16))
+        self.remove_sprite()
+
+# bubble 'water' shot
+class Shot4(Shot): 
+    def __init__(self, g, direction, pos, owner = 'player'):
+        Shot.__init__(self, g, direction, pos, 'shot4', owner)
+        g.shootSound4.play()
+        self.image = self.g.images['inventory'][0].subsurface((0, 0, 0, 0))
+        self.speed = 9 + self.level * 2
+        self.keep_alive = 11
+        self.damage = 2 + self.level
+        self.reload = 7
+        self.rect.height = 10
+        self.yvel = random.randint(-1, 0)
+        self.invisible_timer = 2
+
+    def loop(self, g, r):
+        self.move()
+        if self.level == 0:
+            t = 3 + (self.timer / 2 % 2 == 0)
+            self.image = g.images['inventory'][0].subsurface((t * 32, 6*32, 32, 32))
+        elif self.level == 1:
+            t = (self.timer / 2 % 2 == 0)
+            self.image = g.images['inventory'][0].subsurface((t * 32, 6*32, 32, 32))
+        elif self.level == 2:
+            t = 5 + (self.timer / 2 % 3 == 0)
+            self.image = g.images['inventory'][0].subsurface((t * 32, 3*32, 32, 32))
+        if  self.direction != 2 and self.direction != 3:
+            self.rect.y += self.yvel
+        else:
+            self.rect.x += self.yvel
+        self.loop_end()
+
+    def rebound(self, n):
+        self.destroy()
+
+    def destroy(self):
+        Effect(self.g, 'explosion1', (self.rect.x - 16, self.rect.y - 16))
         self.remove_sprite()
 
     

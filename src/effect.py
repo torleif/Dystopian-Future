@@ -29,7 +29,10 @@ class Effect(Sprite):
         self.name = name
         if name == 'explosion':
             self.keep_alive = 4
-        if name == 'health':
+        elif name == 'shot':
+
+            g.exp4.play()
+        elif name == 'health':
             self.healthchange = 0
             self.keep_alive = 30
             self.rect.x += 5
@@ -79,8 +82,13 @@ class Effect(Sprite):
             Effect(g, 'dirt', pos)
             self.keep_alive = 0
         if name == 'explosion0':
-            self.keep_alive = 8
+            self.keep_alive = 7
             self.image = g.images['inventory'][0].subsurface((0 * 32, 11 * 32, 32, 32))
+            g.exp3.play()
+        if name == 'explosion1':
+            self.keep_alive = 4
+            self.image = g.images['inventory'][0].subsurface((4 * 32, 11 * 32, 32, 32))
+            g.exp5.play()
 
         g.sprites.append(self)
     
@@ -126,6 +134,8 @@ class Effect(Sprite):
             self.vecy += .5
         elif self.name == 'explosion0':
             self.image = g.images['inventory'][0].subsurface(((self.timer / 2) * 32, 11 * 32, 32, 32))
+        elif self.name == 'explosion1':
+            self.image = g.images['inventory'][0].subsurface(((4 + (self.timer / 2)) * 32, 11 * 32, 32, 32))
 
 
 

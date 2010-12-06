@@ -133,9 +133,13 @@ class Ghost(Enemy):
         if rint == 1:
             Inventory(self.g, 'skyberry', (self.rect.x, self.rect.y))
             Inventory(self.g, 'skyberry', (self.rect.x, self.rect.y))
+            Inventory(self.g, 'skyberry', (self.rect.x, self.rect.y))
+            Inventory(self.g, 'health', (self.rect.x + random.randint(0, 32), self.rect.y + random.randint(0, 32)))
         elif rint == 2:
-            Inventory(self.g, 'health', (self.rect.x, self.rect.y))
+            Inventory(self.g, 'health', (self.rect.x + random.randint(0, 32), self.rect.y + random.randint(0, 32)))
+            Inventory(self.g, 'health', (self.rect.x + random.randint(0, 32), self.rect.y + random.randint(0, 32)))
         elif rint == 3:
+            Inventory(self.g, 'skyberry', (self.rect.x, self.rect.y))
             Inventory(self.g, 'skyberry', (self.rect.x, self.rect.y))
             Inventory(self.g, 'skyberry', (self.rect.x, self.rect.y))
             Inventory(self.g, 'skyberry', (self.rect.x, self.rect.y))

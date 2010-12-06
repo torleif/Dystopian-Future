@@ -16,7 +16,7 @@ class Level(LevelBase):
         LevelBase.__init__(self, g, player_new,dimentions)
         self.prevlevel = p
         self.title = 'Castle st'
-
+    
         # current level
         currentLevel = os.path.join("levels",  "level1.tga")
 

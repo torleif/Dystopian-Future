@@ -1,4 +1,4 @@
-""" Get to the airport death? """
+""" blank level """
 import pygame
 from pygame.rect import Rect
 from pygame.locals import *
@@ -45,6 +45,7 @@ class Level(LevelBase):
         #pygame.mixer.music.play(40000)
 
 
+
     # upon moving
     def playerMove(self, g,r,a):
         print 'player move'
@@ -58,67 +59,14 @@ class Level(LevelBase):
     def change_level(self, g,r,a):
         if a.__class__.__name__ != 'Player':
             return
-        if g.player.pos[0] == 64:
-            g.currentLevel = 29
-        if g.player.pos[0] == 1:
-            g.currentLevel = 27
+        
         print g.player.pos
 
     # level events
     def level_loop(self):
         g = self.g
 
-        if self.g.player.pos[0] > 24:
-            if not 'scene16' in g.saveData:
-                g.intermission = 1
-                self.pan_camera(self.fox)
-                if self.dialog == 0:
-                    self.dialog = 1
 
-                if self.dialog != 0:
-                    if g.keyup:
-                        self.dialog += 1
-                        self.contains_msg_box_counter = 0
-                if self.dialog == 2:
-                    g.intermission = 1
-                    str = "The plane is ready. "
-                    self.info_box(str,self.director)
-                if self.dialog == 3:
-                    str = "Him, again?"
-                    self.fox.direction = 1
-                    self.fox.feeling = 'sad'
-                    self.info_box(str,self.director)
-                if self.dialog == 4:
-                    str = "You still havn't killed him?"
-                    self.info_box(str,self.director)
-                    self.fox.direction = 0
-                if self.dialog == 5:
-                    str = "This is your last chance. Finish him!"
-                    self.info_box(str,self.director)
-                    self.director.walkto((35, 16))
-                if self.dialog == 6:
-                    g.intermission = 0
-                    g.saveData['scene16'] = 1
-                    self.dialog = 0
-                    self.fox.attacking = 3
-
-        if self.director.hasWalkedTo((35,16)):
-            self.director.hidden = 1
-        if self.fox.attacking != 0 and self.fox.feeling != 'dead':
-            self.fox.draw_health_meter()
-            self.g.clayer[16][6] = 1
-            self.g.tlayer[16][6] = 30
-        else:
-            if self.fox.health <= 0:
-                self.fox.rect.y += 2 # gravity
-            self.g.clayer[16][6] = 0
-            self.g.tlayer[16][6] = 0
-
-        if self.fox.feeling == 'dead':
-            g.saveData['scene17'] = 1
-
-
-           
         if self.oldPos != g.player.pos:
             self.dialog = 0
             self.oldPos = g.player.pos
