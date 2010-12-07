@@ -207,6 +207,9 @@ class Laser0(Shot):
                 break
             if g.clayer[self.pos[1]][self.pos[0]] == 1:
                 break;
+            # limit to 500 pixels. It's fucking anyoing if you get shot accros the level
+            if lenpus > 500:
+                break;
         if direction == 1:
             self.rect.x -= lenpus
 

@@ -170,7 +170,7 @@ def run(g):
                 if e.key == K_ESCAPE: g.quit = 1
                 if e.key == K_F10 or e.key == K_f:
                     pygame.display.toggle_fullscreen()
-                if e.key == K_RETURN:
+                if e.key == K_p:
                     g.pause ^= 1
                 if e.key == K_DOWN:
                     g.event = 1
@@ -179,15 +179,25 @@ def run(g):
                         print g.player.pos ," (",g.player.rect.x,g.player.rect.y,")"
                 if not g.inTitle:
                     if e.key == K_s:
-                        g.level.inventory_gui += 1
-                    if e.key == K_a:
-                        g.level.inventory_gui -= 1
-                    if e.key == K_v:
                         g.level.weapon_gui += 1
-                    if e.key == K_c:
+                    if e.key == K_a:
                         g.level.weapon_gui -= 1
-                    if (e.key == K_z or e.key == K_RETURN) and (g.level.weapon_gui != 0 or g.level.inventory_gui != 0):
+                    if e.key == K_v:
+                        g.level.inventory_gui += 1
+                    if e.key == K_c:
+                        g.level.inventory_gui -= 1
+                    if (e.key == K_SPACE or e.key == K_x or  e.key == K_z or e.key == K_RETURN) and \
+                            (g.level.weapon_gui != 0 or g.level.inventory_gui != 0):
                         g.level.select_gui = 1
+                        if g.level.weapon_gui != 0 or g.level.select_gui != 0 or g.level.inventory_gui != 0:
+                            g.disable_fire = 1
+                    #if e.key == K_x: # cancel. todo
+                    #    g.level.select_gui = 0
+                    #    g.level.inventory_gui = 0
+                    #    g.level.weapon_gui = 0
+                    #    if g.level.weapon_gui != 0 or g.level.select_gui != 0 or g.level.inventory_gui != 0:
+                    #        g.disable_fire = 1
+
             if e.type is KEYUP:
                 g.keyup = 1
                 #if e.key == K_SPACE and not g.inTitle:

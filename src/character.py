@@ -95,7 +95,16 @@ class Character(Sprite):
             self.dx = 0.0
             self.attackright = 0
             self.attackleft = 0
+            self.cache_image = 0
             self.spawnedspecialnurse = 0
+
+            self.image = pygame.Surface((256, 256), SRCALPHA)
+            self.image.blit(self.imagel, (0,0))
+            self.image.blit(self.imageg, (0,0)) # normal tracks
+            self.image.blit(self.imagec, (0,0))
+            self.image.blit(self.imagea, (0,0))
+            self.image.blit(self.imaged, (0,0))
+            self.image.blit(self.imageb, (0,0))
         elif type == 'robot':
             self.timer = 0
             self.image = self.orginalImage.subsurface((0, 0, 32, 32))
@@ -152,6 +161,8 @@ class Character(Sprite):
             return self.orginalAvatar.subsurface((128, 0, 64, 64))
         elif self.feeling == 'coma':
             return self.orginalAvatar.subsurface((128, 0, 64, 64))
+        elif self.feeling == 'coma2':
+            return self.orginalAvatar.subsurface((128, 0, 64, 64))
         return self.orginalAvatar.subsurface((192, 0, 64, 64))
 
     # upon each loop
@@ -175,6 +186,8 @@ class Character(Sprite):
                 self.image = self.orginalImage.subsurface((32 * 6, 0, 32, 32))
             elif self.feeling == 'coma':
                 self.image = self.orginalImage.subsurface((32 * 7, 0, 32, 32))
+            elif self.feeling == 'coma2':
+                self.image = self.orginalImage.subsurface((32 * 7, 32, 32, 32))
         elif self.type == 'director':# director victora
             self.image = self.orginalImage.subsurface((32 * ((self.framecount/2) % 5), 0, 32, 32))
             if self.feeling == 'sit':
@@ -211,8 +224,8 @@ class Character(Sprite):
                 elif m == 2:
                     self.image = self.orginalImage.subsurface((0, 256, 256, 256))
         elif self.type == 'doctor':# doctor robot
-            if self.dead:
-                self.image = pygame.Surface((1, 1), SRCALPHA)
+            if self.dead == 1:
+                #self.image = pygame.Surface((1, 1), SRCALPHA)
                 return
             self.image = pygame.Surface((256, 256), SRCALPHA)
             enableflip = 0
@@ -328,8 +341,14 @@ class Character(Sprite):
         elif self.type == 'nurse': # the devil child of the doctor. special nurse
             if self.feeling == 'dead':
                 self.image = self.orginalImage.subsurface((5 * 32, 0, 32, 32))
+            elif self.feeling == 'look0':
+                self.image = self.orginalImage.subsurface((6 * 32, 0, 32, 32))
+            elif self.feeling == 'look1':
+                self.image = self.orginalImage.subsurface((7 * 32, 0, 32, 32))
             else:
                 self.image = self.orginalImage.subsurface((0, 0, 32, 32))
+            if self.walking:
+                self.image = self.orginalImage.subsurface((32 * (1 + (self.framecount/3) % 3), 0, 32, 32))
         elif self.type == 'fox':
             if self.lastframehidden != self.hidden and self.lastframehidden != -1:
                 print 'out of frame animation effect'

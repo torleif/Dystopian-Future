@@ -69,8 +69,6 @@ class Level(LevelBase):
             return
         if g.player.pos[0] == 64:
             g.currentLevel = 26
-            if 'i_tape' in g.saveData:
-                g.currentLevel = 28 # change the level a bit.
 
     # level events
     def level_loop(self):
@@ -78,6 +76,9 @@ class Level(LevelBase):
         if g.player.pos == (7, 17):
             if g.event:
                 g.currentLevel = 24
+                print "'i_tape' in g.saveData" , 'i_tape' in g.saveData
+                if 'i_tape' in g.saveData:
+                    g.currentLevel = 29 # change the level a bit.
 
         if self.oldPos != g.player.pos:
             self.dialog = 0

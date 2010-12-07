@@ -16,6 +16,7 @@ SW,SH = 640,480
 SPEED = 1
 GRAVITY = 1
 SPEED_MAX = 7
+MAXVEL = -20
 
 class Player(Sprite):
     """ Player object. 
@@ -201,11 +202,15 @@ class Player(Sprite):
             self.jumpshoot = 0
             if jumpkeydown == 0 and self.canjump == 0:
                 self.jumpshoot = 1
+            if g.disable_fire != 0:
+                g.disable_fire += 1
+                if g.disable_fire > 3:
+                    g.disable_fire = 0
             # the gui disables firing
+            #if not keys[K_z]:
+            #    g.disable_fire = 0
             #if not keys[K_x]:
             #    g.disable_fire = 0
-            if not keys[K_z]:
-                g.disable_fire = 0
         # not walking
         if not keys[K_LEFT] and not keys[K_RIGHT]:
             self.framecount = 0
@@ -236,7 +241,12 @@ class Player(Sprite):
             if g.player.rect.x - g.view.x < 200 and self.dx < 0:
                 g.view.x += self.dx
             if g.player.rect.y - g.view.y > SH - 180:
-                g.view.y += self.maxspeed
+
+                if self.maxspeed < dy - g.player.gravity:
+
+                    g.view.y += dy - g.player.gravity
+                else:
+                    g.view.y += self.maxspeed
             if g.player.rect.y - g.view.y < 100:
                 g.view.y -= self.maxspeed
 
@@ -329,6 +339,8 @@ class Player(Sprite):
 
         # edge
         g.player.gravity -= GRAVITY
+        if g.player.gravity < MAXVEL:
+            g.player.gravity = MAXVEL
         self.rect.x += self.dx
         self.rect.y += dy - g.player.gravity
         #self.rect.clamp_ip(g.view)

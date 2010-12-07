@@ -482,7 +482,6 @@ class LevelBase:
 
             # selecting a different weapon
             if self.select_gui != 0:
-                print 'self.select_gui=',self.select_gui, g.saveData['weapon'],selectedweaponnumber
                 g.saveData['weapon'] = selectedweaponnumber
                 self.weapon_gui = 0
                 self.select_gui = 0
