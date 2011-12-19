@@ -105,7 +105,8 @@ def init():
         ('monster2',    os.path.join("textures",  "monster2.png"),  (0,0,32,32)),
         ('nurse',       os.path.join("textures",  "monster4.png"),  (0,0,32,32)),
         ('monster5',    os.path.join("textures",  "monster5.png"),  (0,0,32,32)),
-        ('monster6',    os.path.join("textures",  "monster6.png"),  (0,0,32,32))
+        ('monster6',    os.path.join("textures",  "monster6.png"),  (0,0,32,32)),
+        ('zombie',    os.path.join("textures",  "zombie.png"),  (0,0,64,64))
     ]
     g.load_images(idata)
     # bounds of the rect
